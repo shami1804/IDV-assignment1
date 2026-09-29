@@ -31,7 +31,6 @@
 
     .background {
       position: fixed;
-
       top: 0;
       left: 0;
 
@@ -451,6 +450,10 @@
     }
 
 
+    /* =========================
+       TABLE
+    ========================= */
+
     .table-wrapper {
 
       width: 100%;
@@ -466,8 +469,12 @@
       border-collapse: collapse;
 
       min-width: 850px;
+
+      background: white;
     }
 
+
+    /* GREEN TABLE HEADER */
 
     th {
 
@@ -475,7 +482,7 @@
 
       text-align: left;
 
-      background: #0B2348;
+      background: #249447;
 
       color: white;
 
@@ -483,12 +490,14 @@
     }
 
 
+    /* TABLE ROWS */
+
     td {
 
       padding: 12px 13px;
 
       border-bottom:
-        1px solid #e1e8ef;
+        1px solid #d9eadf;
 
       color: #43546b;
 
@@ -496,9 +505,25 @@
     }
 
 
-    tr:hover {
+    /* ALTERNATING ROWS */
 
-      background: rgba(235, 244, 252, 0.7);
+    tbody tr:nth-child(even) {
+
+      background: #f5fbf7;
+    }
+
+
+    tbody tr:nth-child(odd) {
+
+      background: #ffffff;
+    }
+
+
+    /* HOVER */
+
+    tbody tr:hover {
+
+      background: #e8f6ed;
     }
 
 
@@ -523,7 +548,7 @@
 
 
     /* =========================
-       MOBILE
+       RESPONSIVE
     ========================= */
 
     @media (max-width: 1350px) {
@@ -603,7 +628,7 @@
 
 
   <!-- =========================
-       BACKGROUND IMAGE
+       BACKGROUND
   ========================= -->
 
   <img
@@ -613,9 +638,8 @@
   >
 
 
-
   <!-- =========================
-       PAGE CONTENT
+       CONTENT
   ========================= -->
 
   <main class="content">
@@ -830,7 +854,7 @@
 
 
     <!-- =========================
-         ALL 12 API READINGS
+         ALL 12 READINGS
     ========================= -->
 
     <section class="table-card">
@@ -937,18 +961,13 @@
   <script>
 
 
-    /* =========================
-       API URL
-    ========================= */
+    /* API */
 
     const API_URL =
       "https://api-open.data.gov.sg/v2/real-time/api/psi";
 
 
-
-    /* =========================
-       REQUIRED 12 READINGS
-    ========================= */
+    /* Required 12 readings */
 
     const readings = [
 
@@ -979,10 +998,7 @@
     ];
 
 
-
-    /* =========================
-       REGIONS
-    ========================= */
+    /* Regions */
 
     const regions = [
 
@@ -999,10 +1015,7 @@
     ];
 
 
-
-    /* =========================
-       FORMAT READING NAME
-    ========================= */
+    /* Format API names */
 
     function formatName(name) {
 
@@ -1028,10 +1041,7 @@
     }
 
 
-
-    /* =========================
-       PSI QUALITY
-    ========================= */
+    /* PSI quality */
 
     function getQuality(psi) {
 
@@ -1119,9 +1129,8 @@
     }
 
 
-
     /* =========================
-       LOAD PSI DATA
+       LOAD PSI
     ========================= */
 
     async function loadPSI() {
@@ -1152,7 +1161,7 @@
       try {
 
 
-        /* Get data from API */
+        /* Fetch API */
 
         const response =
           await fetch(API_URL);
@@ -1180,13 +1189,13 @@
         );
 
 
-        /* Get latest item */
+        /* Latest item */
 
         const item =
           data.data.items[0];
 
 
-        /* Get all readings */
+        /* All readings */
 
         const readingsData =
           item.readings;
@@ -1194,16 +1203,13 @@
 
 
         /* =========================
-           PSI BY REGION
+           REGIONAL PSI
         ========================= */
 
         const psiData =
           readingsData
             .psi_twenty_four_hourly;
 
-
-
-        /* Display each region */
 
         regions.forEach(
           function(region) {
@@ -1218,9 +1224,7 @@
 
 
 
-        /* =========================
-           FIND HIGHEST PSI
-        ========================= */
+        /* Find highest PSI */
 
         let highestRegion =
           regions[0];
@@ -1248,7 +1252,7 @@
 
 
 
-        /* Display highest PSI */
+        /* Display PSI */
 
         document.getElementById(
           "psiValue"
@@ -1267,9 +1271,7 @@
 
 
 
-        /* =========================
-           QUALITY
-        ========================= */
+        /* Quality */
 
         const quality =
           getQuality(highestPSI);
@@ -1332,8 +1334,6 @@
             `;
 
 
-            /* Add five regions */
-
             regions.forEach(
               function(region) {
 
@@ -1380,7 +1380,7 @@
 
 
         /* =========================
-           UPDATED TIME
+           UPDATE TIME
         ========================= */
 
         const timestamp =
@@ -1451,18 +1451,13 @@
 
 
 
-    /* =========================
-       LOAD WHEN PAGE OPENS
-    ========================= */
+    /* Load immediately */
 
     loadPSI();
 
 
 
-    /* =========================
-       AUTO REFRESH
-       EVERY 15 MINUTES
-    ========================= */
+    /* Refresh every 15 minutes */
 
     setInterval(
 
