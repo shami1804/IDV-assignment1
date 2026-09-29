@@ -3,10 +3,12 @@
 
 <head>
 
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
   <title>Singapore Air Quality</title>
 
@@ -18,10 +20,17 @@
     }
 
 
+    html,
     body {
       margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
-      overflow-x: hidden;
+      min-height: 100%;
+    }
+
+
+    body {
+      background: #eef5fa;
       color: #0B2348;
     }
 
@@ -31,7 +40,9 @@
     ========================= */
 
     .background {
+
       position: fixed;
+
       top: 0;
       left: 0;
 
@@ -40,7 +51,25 @@
 
       object-fit: cover;
 
-      z-index: 0;
+      z-index: -2;
+    }
+
+
+    /* Light overlay so data is readable */
+
+    .overlay {
+
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: 100vw;
+      height: 100vh;
+
+      background: rgba(240, 247, 252, 0.45);
+
+      z-index: -1;
     }
 
 
@@ -48,14 +77,17 @@
        MAIN CONTENT
     ========================= */
 
-    .content {
-      position: relative;
+    .page {
 
-      z-index: 10;
+      width: 90%;
 
-      min-height: 100vh;
+      max-width: 1150px;
 
-      padding: 6vh 5vw 60px 5vw;
+      margin: 0 auto;
+
+      padding-top: 6%;
+
+      padding-bottom: 60px;
     }
 
 
@@ -63,12 +95,13 @@
        HEADER
     ========================= */
 
-    .header {
+    header {
       margin-bottom: 35px;
     }
 
 
-    .header h1 {
+    h1 {
+
       margin: 0;
 
       color: #0B2348;
@@ -81,7 +114,8 @@
     }
 
 
-    .header h2 {
+    .subtitle {
+
       margin: 12px 0 0 0;
 
       color: #65738A;
@@ -92,7 +126,8 @@
     }
 
 
-    .header p {
+    .source {
+
       margin: 12px 0 0 0;
 
       color: #65738A;
@@ -104,25 +139,26 @@
 
 
     /* =========================
-       LIVE STATUS
+       LIVE BADGE
     ========================= */
 
     .live {
+
       display: inline-flex;
 
       align-items: center;
 
       gap: 7px;
 
-      margin-top: 14px;
+      margin-top: 15px;
 
-      padding: 7px 14px;
+      background: rgba(255, 255, 255, 0.82);
 
-      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(200, 215, 230, 0.8);
 
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      padding: 8px 15px;
 
-      border-radius: 20px;
+      border-radius: 30px;
 
       color: #16803c;
 
@@ -133,7 +169,9 @@
 
 
     .live-dot {
+
       width: 8px;
+
       height: 8px;
 
       background: #22a447;
@@ -143,56 +181,49 @@
 
 
     /* =========================
-       PSI MAIN CARD
+       PSI CARD
     ========================= */
 
     .psi-card {
 
-      width: 100%;
+      background: rgba(255, 255, 255, 0.88);
 
-      max-width: 950px;
+      backdrop-filter: blur(10px);
 
-      margin-bottom: 25px;
+      border-radius: 22px;
 
-      padding: 25px;
-
-      background: rgba(255, 255, 255, 0.84);
-
-      backdrop-filter: blur(12px);
-
-      -webkit-backdrop-filter: blur(12px);
-
-      border-radius: 24px;
-
-      box-shadow:
-        0 12px 35px rgba(20, 50, 80, 0.12);
+      padding: 28px;
 
       display: flex;
 
       align-items: center;
 
       gap: 35px;
+
+      box-shadow:
+        0 12px 35px rgba(40, 70, 100, 0.15);
+
+      margin-bottom: 22px;
     }
 
 
     .psi-main {
 
-      min-width: 260px;
+      width: 300px;
 
       text-align: center;
 
-      padding-right: 35px;
+      border-right: 1px solid #dbe5ee;
 
-      border-right:
-        1px solid rgba(100, 120, 140, 0.25);
+      padding-right: 30px;
     }
 
 
     .psi-label {
 
-      font-size: 17px;
-
       color: #65738A;
+
+      font-size: 17px;
 
       margin-bottom: 5px;
     }
@@ -200,13 +231,13 @@
 
     .psi-value {
 
-      font-size: 68px;
+      color: #209447;
 
-      line-height: 1;
+      font-size: 70px;
 
       font-weight: 700;
 
-      color: #249447;
+      line-height: 1;
     }
 
 
@@ -214,9 +245,9 @@
 
       margin-top: 8px;
 
-      font-size: 14px;
-
       color: #65738A;
+
+      font-size: 14px;
     }
 
 
@@ -224,29 +255,29 @@
 
       display: inline-block;
 
-      margin-top: 10px;
-
-      padding: 7px 25px;
-
-      border-radius: 20px;
+      margin-top: 12px;
 
       background: #e5f7eb;
 
       color: #16803c;
 
-      font-size: 14px;
+      padding: 7px 28px;
+
+      border-radius: 20px;
 
       font-weight: bold;
+
+      font-size: 14px;
     }
 
 
     .psi-info h2 {
 
-      margin: 0 0 8px 0;
+      margin: 0 0 10px;
 
       color: #0B2348;
 
-      font-size: 23px;
+      font-size: 25px;
     }
 
 
@@ -256,9 +287,7 @@
 
       color: #65738A;
 
-      font-size: 15px;
-
-      line-height: 1.5;
+      line-height: 1.6;
 
       max-width: 500px;
     }
@@ -266,11 +295,11 @@
 
     .updated {
 
-      margin-top: 10px;
+      margin-top: 12px;
 
       color: #65738A;
 
-      font-size: 12px;
+      font-size: 13px;
     }
 
 
@@ -280,34 +309,28 @@
 
     .regional-card {
 
-      width: 100%;
+      background: rgba(255, 255, 255, 0.86);
 
-      max-width: 950px;
+      backdrop-filter: blur(10px);
 
-      margin-bottom: 25px;
+      border-radius: 20px;
 
       padding: 22px;
 
-      background: rgba(255, 255, 255, 0.82);
-
-      backdrop-filter: blur(12px);
-
-      -webkit-backdrop-filter: blur(12px);
-
-      border-radius: 22px;
+      margin-bottom: 22px;
 
       box-shadow:
-        0 10px 30px rgba(20, 50, 80, 0.10);
+        0 10px 30px rgba(40, 70, 100, 0.12);
     }
 
 
     .regional-card h2 {
 
-      margin: 0 0 16px 0;
+      margin: 0 0 18px;
 
       color: #0B2348;
 
-      font-size: 20px;
+      font-size: 21px;
     }
 
 
@@ -324,38 +347,39 @@
 
     .region {
 
-      padding: 15px 8px;
+      background: rgba(246, 250, 255, 0.9);
 
-      text-align: center;
-
-      background: rgba(247, 250, 253, 0.85);
-
-      border:
-        1px solid rgba(210, 225, 238, 0.8);
+      border: 1px solid #dce7f0;
 
       border-radius: 15px;
+
+      padding: 15px;
+
+      text-align: center;
     }
 
 
     .region-name {
 
-      color: #65738A;
-
-      font-size: 13px;
+      color: #0B2348;
 
       font-weight: bold;
+
+      font-size: 14px;
+
+      text-transform: capitalize;
     }
 
 
     .region-value {
 
-      margin-top: 6px;
+      color: #209447;
 
-      color: #249447;
-
-      font-size: 25px;
+      font-size: 28px;
 
       font-weight: bold;
+
+      margin-top: 7px;
     }
 
 
@@ -365,22 +389,16 @@
 
     .table-card {
 
-      width: 100%;
+      background: rgba(255, 255, 255, 0.90);
 
-      max-width: 950px;
+      backdrop-filter: blur(10px);
 
       padding: 22px;
-
-      background: rgba(255, 255, 255, 0.88);
-
-      backdrop-filter: blur(12px);
-
-      -webkit-backdrop-filter: blur(12px);
 
       border-radius: 22px;
 
       box-shadow:
-        0 10px 30px rgba(20, 50, 80, 0.10);
+        0 12px 35px rgba(40, 70, 100, 0.14);
     }
 
 
@@ -392,7 +410,7 @@
 
       align-items: center;
 
-      margin-bottom: 15px;
+      margin-bottom: 18px;
     }
 
 
@@ -402,29 +420,29 @@
 
       color: #0B2348;
 
-      font-size: 20px;
+      font-size: 21px;
     }
 
 
-    .refresh-button {
+    button {
 
       border: none;
-
-      padding: 9px 16px;
-
-      border-radius: 18px;
 
       background: #eaf4ff;
 
       color: #1475d1;
 
-      font-weight: bold;
+      padding: 9px 17px;
+
+      border-radius: 20px;
 
       cursor: pointer;
+
+      font-weight: bold;
     }
 
 
-    .refresh-button:hover {
+    button:hover {
 
       background: #d8ecff;
     }
@@ -444,40 +462,39 @@
 
       border-collapse: collapse;
 
-      min-width: 700px;
+      min-width: 750px;
     }
 
 
     th {
 
-      padding: 12px;
-
-      text-align: left;
-
       background: #0B2348;
 
       color: white;
 
-      font-size: 13px;
+      text-align: left;
+
+      padding: 13px;
+
+      font-size: 14px;
     }
 
 
     td {
 
-      padding: 11px 12px;
+      padding: 12px 13px;
 
-      border-bottom:
-        1px solid #e1e8ef;
+      border-bottom: 1px solid #e2e8ef;
 
-      color: #43546b;
+      color: #475467;
 
-      font-size: 13px;
+      font-size: 14px;
     }
 
 
     tr:hover {
 
-      background: rgba(235, 244, 252, 0.7);
+      background: rgba(239, 247, 255, 0.8);
     }
 
 
@@ -507,17 +524,18 @@
 
     @media (max-width: 800px) {
 
-      .content {
-        padding: 35px 20px;
+      .page {
+        width: 92%;
+        padding-top: 35px;
       }
 
 
-      .header h1 {
+      h1 {
         font-size: 34px;
       }
 
 
-      .header h2 {
+      .subtitle {
         font-size: 18px;
       }
 
@@ -526,20 +544,22 @@
 
         flex-direction: column;
 
-        align-items: stretch;
+        gap: 22px;
       }
 
 
       .psi-main {
 
-        padding-right: 0;
-
-        padding-bottom: 20px;
+        width: 100%;
 
         border-right: none;
 
         border-bottom:
-          1px solid rgba(100, 120, 140, 0.25);
+          1px solid #dbe5ee;
+
+        padding-right: 0;
+
+        padding-bottom: 22px;
       }
 
 
@@ -547,6 +567,16 @@
 
         grid-template-columns:
           repeat(2, 1fr);
+      }
+
+
+      .table-header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 12px;
       }
 
     }
@@ -559,7 +589,7 @@
 <body>
 
 
-  <!-- YOUR BACKGROUND -->
+  <!-- BACKGROUND IMAGE -->
 
   <img
     src="bg.png"
@@ -568,26 +598,31 @@
   >
 
 
-  <main class="content">
+  <!-- BACKGROUND OVERLAY -->
+
+  <div class="overlay"></div>
 
 
-    <!-- =========================
-         HEADER
-    ========================= -->
+  <!-- PAGE CONTENT -->
 
-    <header class="header">
+  <main class="page">
+
+
+    <!-- HEADER -->
+
+    <header>
 
       <h1>
         Singapore Air Quality
       </h1>
 
 
-      <h2>
+      <h2 class="subtitle">
         Real-time PSI and Pollutant Readings
       </h2>
 
 
-      <p>
+      <p class="source">
         Data from <strong>data.gov.sg</strong>
         • Updated in real time
       </p>
@@ -605,9 +640,7 @@
 
 
 
-    <!-- =========================
-         CURRENT PSI
-    ========================= -->
+    <!-- PSI -->
 
     <section class="psi-card">
 
@@ -654,8 +687,11 @@
 
 
         <p id="qualityDescription">
-          Retrieving the latest PSI reading
-          from the National Environment Agency.
+
+          Retrieving the latest PSI
+          reading from the National
+          Environment Agency.
+
         </p>
 
 
@@ -673,9 +709,7 @@
 
 
 
-    <!-- =========================
-         REGIONAL PSI
-    ========================= -->
+    <!-- REGIONAL PSI -->
 
     <section class="regional-card">
 
@@ -774,9 +808,7 @@
 
 
 
-    <!-- =========================
-         ALL 12 READINGS
-    ========================= -->
+    <!-- API TABLE -->
 
     <section class="table-card">
 
@@ -788,54 +820,34 @@
         </h2>
 
 
-        <button
-          class="refresh-button"
-          onclick="loadPSI()"
-        >
+        <button onclick="loadPSI()">
           ↻ Refresh Data
         </button>
 
       </div>
 
 
-
       <div class="table-wrapper">
 
-
         <table>
-
 
           <thead>
 
             <tr>
 
-              <th>
-                No.
-              </th>
+              <th>No.</th>
 
-              <th>
-                Reading Name
-              </th>
+              <th>Reading Name</th>
 
-              <th>
-                North
-              </th>
+              <th>North</th>
 
-              <th>
-                South
-              </th>
+              <th>South</th>
 
-              <th>
-                East
-              </th>
+              <th>East</th>
 
-              <th>
-                West
-              </th>
+              <th>West</th>
 
-              <th>
-                Central
-              </th>
+              <th>Central</th>
 
             </tr>
 
@@ -857,7 +869,6 @@
 
           </tbody>
 
-
         </table>
 
       </div>
@@ -870,19 +881,18 @@
 
 
 
-  <!-- =========================
-       JAVASCRIPT / API
-  ========================= -->
+  <!-- JAVASCRIPT -->
 
   <script>
 
+
+    /* API URL */
 
     const API_URL =
       "https://api-open.data.gov.sg/v2/real-time/api/psi";
 
 
-    /* The 12 readings required
-       for your assignment */
+    /* Required 12 readings */
 
     const readings = [
 
@@ -913,18 +923,14 @@
     ];
 
 
-    /* Singapore regions */
+    /* Regions */
 
     const regions = [
 
       "north",
-
       "south",
-
       "east",
-
       "west",
-
       "central"
 
     ];
@@ -935,23 +941,10 @@
     function formatName(name) {
 
       return name
-
         .replaceAll("_", " ")
-
-        .replace(
-          "twenty four",
-          "24"
-        )
-
-        .replace(
-          "eight hour",
-          "8 hour"
-        )
-
-        .replace(
-          "one hour",
-          "1 hour"
-        );
+        .replace("twenty four", "24")
+        .replace("eight hour", "8 hour")
+        .replace("one hour", "1 hour");
 
     }
 
@@ -964,15 +957,10 @@
       if (psi <= 50) {
 
         return {
-
           status: "Good",
-
-          title:
-            "Air Quality is Good",
-
+          title: "Air Quality is Good",
           description:
             "Air quality is considered satisfactory."
-
         };
 
       }
@@ -981,15 +969,10 @@
       if (psi <= 100) {
 
         return {
-
           status: "Moderate",
-
-          title:
-            "Air Quality is Moderate",
-
+          title: "Air Quality is Moderate",
           description:
             "Air quality is acceptable, but some pollutants may be a concern."
-
         };
 
       }
@@ -998,15 +981,10 @@
       if (psi <= 200) {
 
         return {
-
           status: "Unhealthy",
-
-          title:
-            "Air Quality is Unhealthy",
-
+          title: "Air Quality is Unhealthy",
           description:
             "Everyone may begin to experience health effects."
-
         };
 
       }
@@ -1015,46 +993,32 @@
       if (psi <= 300) {
 
         return {
-
           status: "Very Unhealthy",
-
-          title:
-            "Air Quality is Very Unhealthy",
-
+          title: "Air Quality is Very Unhealthy",
           description:
             "Health alert conditions may occur."
-
         };
 
       }
 
 
       return {
-
         status: "Hazardous",
-
-        title:
-          "Air Quality is Hazardous",
-
+        title: "Air Quality is Hazardous",
         description:
           "Health warnings of emergency conditions are expected."
-
       };
 
     }
 
 
-    /* =========================
-       LOAD API DATA
-    ========================= */
+    /* Load PSI data */
 
     async function loadPSI() {
 
 
       const table =
-        document.getElementById(
-          "psiTable"
-        );
+        document.getElementById("psiTable");
 
 
       table.innerHTML = `
@@ -1076,7 +1040,7 @@
       try {
 
 
-        /* Request API */
+        /* Fetch API */
 
         const response =
           await fetch(API_URL);
@@ -1104,26 +1068,26 @@
         );
 
 
-        /* Get latest data */
+        /* Latest item */
 
         const item =
           data.data.items[0];
 
 
+        /* All readings */
+
         const readingsData =
           item.readings;
 
 
-        /* =========================
-           PSI BY REGION
-        ========================= */
+        /* PSI data */
 
         const psiData =
           readingsData
             .psi_twenty_four_hourly;
 
 
-        /* Put values into region cards */
+        /* Display regional PSI */
 
         regions.forEach(
           function(region) {
@@ -1137,7 +1101,7 @@
         );
 
 
-        /* Find highest PSI */
+        /* Find highest region */
 
         let highestRegion =
           regions[0];
@@ -1164,7 +1128,7 @@
           psiData[highestRegion];
 
 
-        /* Display highest PSI */
+        /* Main PSI */
 
         document.getElementById(
           "psiValue"
@@ -1182,7 +1146,7 @@
           highestRegion.slice(1);
 
 
-        /* Air quality */
+        /* Quality */
 
         const quality =
           getQuality(highestPSI);
@@ -1206,7 +1170,6 @@
           quality.description;
 
 
-
         /* =========================
            TABLE
         ========================= */
@@ -1225,9 +1188,7 @@
 
 
             const row =
-              document.createElement(
-                "tr"
-              );
+              document.createElement("tr");
 
 
             let html = `
@@ -1281,9 +1242,7 @@
               html;
 
 
-            table.appendChild(
-              row
-            );
+            table.appendChild(row);
 
           }
         );
@@ -1312,7 +1271,6 @@
 
         }
 
-
       }
 
 
@@ -1333,10 +1291,7 @@
               colspan="7"
               class="error"
             >
-
               Unable to load PSI data.
-              Please refresh the page.
-
             </td>
 
           </tr>
@@ -1365,15 +1320,11 @@
     loadPSI();
 
 
-    /* Automatically refresh
-       every 15 minutes */
+    /* Refresh every 15 minutes */
 
     setInterval(
-
       loadPSI,
-
       15 * 60 * 1000
-
     );
 
 
