@@ -1,79 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-  <meta charset="UTF-8" />
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Singapore Air Quality</title>
 
-
   <style>
-
     * {
-      box-sizing:border-box;
+      box-sizing: border-box;
     }
 
-
-    html,
     body {
       margin: 0;
-      padding: 0;
       font-family: Arial, sans-serif;
-      min-height:100%;
-    }
-
-
-    body {
       background: #eef5fa;
-      color:#0B2348;
+      color: #0B2348;
     }
 
     .background {
-
       position: fixed;
-
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       top: 0;
       left: 0;
-
-      width: 100vw;
-      height: 100vh;
-
-      object-fit: cover;
-
       z-index: -2;
     }
 
     .overlay {
-
       position: fixed;
-
+      width: 100%;
+      height: 100%;
       top: 0;
       left: 0;
-
-      width: 100vw;
-      height: 100vh;
-
       background: rgba(240, 247, 252, 0.45);
-
       z-index: -1;
     }
 
     .page {
-
       width: 90%;
-
       max-width: 1150px;
-
-      margin: 0 auto;
-
+      margin: auto;
       padding-top: 6%;
-
       padding-bottom: 60px;
     }
 
@@ -81,548 +51,287 @@
       margin-bottom: 35px;
     }
 
-
     h1 {
-
       margin: 0;
-
-      color: #0B2348;
-
       font-size: 40px;
-
-      font-weight: 700;
-
-      line-height: 1.1;
     }
-
 
     .subtitle {
-
-      margin: 12px 0 0 0;
-
+      margin-top: 12px;
       color: #65738A;
-
       font-size: 20px;
-
-      font-weight: 500;
     }
-
 
     .source {
-
-      margin: 12px 0 0 0;
-
       color: #65738A;
-
       font-size: 13px;
-
-      font-weight: 400;
     }
 
-
     .live {
-
       display: inline-flex;
-
       align-items: center;
-
       gap: 7px;
-
-      margin-top: 15px;
-
-      background: rgba(255, 255, 255, 0.82);
-
-      border: 1px solid rgba(200, 215, 230, 0.8);
-
+      margin-top: 10px;
       padding: 8px 15px;
-
-      border-radius: 30px;
-
+      border-radius: 20px;
+      background: white;
       color: #16803c;
-
       font-size: 13px;
-
       font-weight: bold;
     }
 
-
     .live-dot {
-
       width: 8px;
-
       height: 8px;
-
       background: #22a447;
-
       border-radius: 50%;
     }
 
     .psi-card {
-
-      background: rgba(255, 255, 255, 0.88);
-
-      backdrop-filter: blur(10px);
-
-      border-radius: 22px;
-
-      padding: 28px;
-
       display: flex;
-
       align-items: center;
-
       gap: 35px;
-
-      box-shadow:
-        0 12px 35px rgba(40, 70, 100, 0.15);
-
+      padding: 28px;
       margin-bottom: 22px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 22px;
+      box-shadow: 0 12px 35px rgba(40, 70, 100, 0.15);
     }
-
 
     .psi-main {
-
       width: 300px;
-
-      text-align: center;
-
-      border-right: 1px solid #dbe5ee;
-
       padding-right: 30px;
+      text-align: center;
+      border-right: 1px solid #dbe5ee;
     }
-
 
     .psi-label {
-
       color: #65738A;
-
       font-size: 17px;
-
-      margin-bottom: 5px;
     }
-
 
     .psi-value {
-
-      color: #209447;
-
+      margin-top: 5px;
       font-size: 70px;
-
-      font-weight: 700;
-
-      line-height: 1;
+      font-weight: bold;
+      color: #209447;
     }
-
 
     .psi-region {
-
-      margin-top: 8px;
-
       color: #65738A;
-
       font-size: 14px;
     }
-
 
     .psi-status {
-
       display: inline-block;
-
       margin-top: 12px;
-
-      background: #e5f7eb;
-
-      color: #16803c;
-
       padding: 7px 28px;
-
       border-radius: 20px;
-
+      background: #e5f7eb;
+      color: #16803c;
       font-weight: bold;
-
       font-size: 14px;
     }
 
-
     .psi-info h2 {
-
-      margin: 0 0 10px;
-
+      margin-top: 0;
       color: #0B2348;
-
-      font-size: 25px;
     }
-
 
     .psi-info p {
-
-      margin: 0;
-
-      color: #65738A;
-
-      line-height: 1.6;
-
       max-width: 500px;
+      line-height: 1.6;
+      color: #65738A;
     }
 
-
     .updated {
-
-      margin-top: 12px;
-
       color: #65738A;
-
       font-size: 13px;
     }
 
-    .regional-card {
-
-      background: rgba(255, 255, 255, 0.86);
-
-      backdrop-filter: blur(10px);
-
-      border-radius: 20px;
-
+    .regional-card,
+    .table-card {
       padding: 22px;
-
       margin-bottom: 22px;
-
-      box-shadow:
-        0 10px 30px rgba(40, 70, 100, 0.12);
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(40, 70, 100, 0.12);
     }
 
-
-    .regional-card h2 {
-
-      margin: 0 0 18px;
-
+    .regional-card h2,
+    .table-header h2 {
+      margin-top: 0;
       color: #0B2348;
-
-      font-size: 21px;
     }
-
 
     .regions {
-
       display: grid;
-
-      grid-template-columns:
-        repeat(5, 1fr);
-
+      grid-template-columns: repeat(5, 1fr);
       gap: 12px;
     }
 
-
     .region {
-
-      background: rgba(246, 250, 255, 0.9);
-
-      border: 1px solid #dce7f0;
-
-      border-radius: 15px;
-
       padding: 15px;
-
       text-align: center;
+      border: 1px solid #dce7f0;
+      border-radius: 15px;
+      background: #f6faff;
     }
-
 
     .region-name {
-
-      color: #0B2348;
-
       font-weight: bold;
-
       font-size: 14px;
-
-      text-transform: capitalize;
     }
-
 
     .region-value {
-
-      color: #209447;
-
-      font-size: 28px;
-
-      font-weight: bold;
-
       margin-top: 7px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #209447;
     }
-
-
-    .table-card {
-
-      background: rgba(255, 255, 255, 0.90);
-
-      backdrop-filter: blur(10px);
-
-      padding: 22px;
-
-      border-radius: 22px;
-
-      box-shadow:
-        0 12px 35px rgba(40, 70, 100, 0.14);
-    }
-
 
     .table-header {
-
       display: flex;
-
       justify-content: space-between;
-
       align-items: center;
-
       margin-bottom: 18px;
     }
 
-
-    .table-header h2 {
-
-      margin: 0;
-
-      color: #0B2348;
-
-      font-size: 21px;
-    }
-
-
     button {
-
-      border: none;
-
-      background: #eaf4ff;
-
-      color: #1475d1;
-
       padding: 9px 17px;
-
+      border: none;
       border-radius: 20px;
-
-      cursor: pointer;
-
+      background: #eaf4ff;
+      color: #1475d1;
       font-weight: bold;
+      cursor: pointer;
     }
-
 
     button:hover {
-
       background: #d8ecff;
     }
 
-
     .table-wrapper {
-
-      width: 100%;
-
       overflow-x: auto;
     }
 
-
     table {
-
       width: 100%;
-
-      border-collapse: collapse;
-
       min-width: 750px;
+      border-collapse: collapse;
     }
-
 
     th {
-
-      background: #249447;
-
-      color: white;
-
-      text-align: left;
-
       padding: 13px;
-
+      background: #249447;
+      color: white;
+      text-align: left;
       font-size: 14px;
     }
-
 
     td {
-
-      padding: 12px 13px;
-
+      padding: 12px;
       border-bottom: 1px solid #e2e8ef;
-
       color: #475467;
-
       font-size: 14px;
     }
 
-
     tr:hover {
-
       background: #e8f6ed;
     }
 
+    .loading,
+    .error {
+      text-align: center;
+      padding: 20px;
+    }
 
     .loading {
-
-      text-align: center;
-
-      padding: 25px;
-
       color: #65738A;
     }
 
-
     .error {
-
-      text-align: center;
-
-      padding: 20px;
-
       color: #c62828;
     }
 
-
     @media (max-width: 800px) {
-
       .page {
         width: 92%;
         padding-top: 35px;
       }
 
-
       h1 {
         font-size: 34px;
       }
-
 
       .subtitle {
         font-size: 18px;
       }
 
-
       .psi-card {
-
         flex-direction: column;
-
-        gap: 22px;
       }
-
 
       .psi-main {
-
         width: 100%;
-
-        border-right: none;
-
-        border-bottom:
-          1px solid #dbe5ee;
-
         padding-right: 0;
-
-        padding-bottom: 22px;
+        padding-bottom: 20px;
+        border-right: none;
+        border-bottom: 1px solid #dbe5ee;
       }
-
 
       .regions {
-
-        grid-template-columns:
-          repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
-
 
       .table-header {
-
         flex-direction: column;
-
         align-items: flex-start;
-
-        gap: 12px;
+        gap: 10px;
       }
-
     }
-
   </style>
-
 </head>
-
 
 <body>
 
-
-  <img
-    src="bg.png"
-    class="background"
-    alt=""
-  >
-
+  <img src="bg.png" class="background" alt="">
   <div class="overlay"></div>
 
   <main class="page">
 
     <header>
-
-      <h1>
-        Singapore Air Quality
-      </h1>
-
+      <h1>Singapore Air Quality</h1>
 
       <h2 class="subtitle">
         Real-time PSI and Pollutant Readings
       </h2>
 
-
       <p class="source">
-        Data from <strong>data.gov.sg</strong>
-        • Updated in real time
+        Data from <strong>data.gov.sg</strong> • Updated in real time
       </p>
 
-
       <div class="live">
-
         <span class="live-dot"></span>
-
         LIVE DATA
-
       </div>
-
     </header>
 
     <section class="psi-card">
 
-
       <div class="psi-main">
+        <div class="psi-label">Highest Current PSI</div>
 
-        <div class="psi-label">
-          Highest Current PSI
-        </div>
+        <div class="psi-value" id="psiValue">--</div>
 
-
-        <div
-          class="psi-value"
-          id="psiValue"
-        >
-          --
-        </div>
-
-
-        <div
-          class="psi-region"
-          id="psiRegion"
-        >
+        <div class="psi-region" id="psiRegion">
           Loading...
         </div>
 
-
-        <div
-          class="psi-status"
-          id="psiStatus"
-        >
+        <div class="psi-status" id="psiStatus">
           Loading...
         </div>
-
       </div>
-
-
 
       <div class="psi-info">
 
@@ -630,595 +339,278 @@
           Loading air quality...
         </h2>
 
-
         <p id="qualityDescription">
-
-          Retrieving the latest PSI
-          reading from the National
-          Environment Agency.
-
+          Retrieving the latest PSI reading from the National Environment Agency.
         </p>
 
-
-        <div
-          class="updated"
-          id="updatedTime"
-        >
+        <div class="updated" id="updatedTime">
           Updating...
         </div>
 
       </div>
 
-
     </section>
-
 
     <section class="regional-card">
 
-
-      <h2>
-        PSI by Region
-      </h2>
-
+      <h2>PSI by Region</h2>
 
       <div class="regions">
 
-
         <div class="region">
-
-          <div class="region-name">
-            North
-          </div>
-
-          <div
-            class="region-value"
-            id="north"
-          >
-            --
-          </div>
-
+          <div class="region-name">North</div>
+          <div class="region-value" id="north">--</div>
         </div>
 
-
         <div class="region">
-
-          <div class="region-name">
-            South
-          </div>
-
-          <div
-            class="region-value"
-            id="south"
-          >
-            --
-          </div>
-
+          <div class="region-name">South</div>
+          <div class="region-value" id="south">--</div>
         </div>
 
-
         <div class="region">
-
-          <div class="region-name">
-            East
-          </div>
-
-          <div
-            class="region-value"
-            id="east"
-          >
-            --
-          </div>
-
+          <div class="region-name">East</div>
+          <div class="region-value" id="east">--</div>
         </div>
 
-
         <div class="region">
-
-          <div class="region-name">
-            West
-          </div>
-
-          <div
-            class="region-value"
-            id="west"
-          >
-            --
-          </div>
-
+          <div class="region-name">West</div>
+          <div class="region-value" id="west">--</div>
         </div>
 
-
         <div class="region">
-
-          <div class="region-name">
-            Central
-          </div>
-
-          <div
-            class="region-value"
-            id="central"
-          >
-            --
-          </div>
-
+          <div class="region-name">Central</div>
+          <div class="region-value" id="central">--</div>
         </div>
-
 
       </div>
 
     </section>
 
-
     <section class="table-card">
 
-
       <div class="table-header">
-
-        <h2>
-          All 12 API Readings
-        </h2>
-
+        <h2>All 12 API Readings</h2>
 
         <button onclick="loadPSI()">
           ↻ Refresh Data
         </button>
-
       </div>
-
 
       <div class="table-wrapper">
 
         <table>
 
           <thead>
-
             <tr>
-
               <th>No.</th>
-
               <th>Reading Name</th>
-
               <th>North</th>
-
               <th>South</th>
-
               <th>East</th>
-
               <th>West</th>
-
               <th>Central</th>
-
             </tr>
-
           </thead>
 
-
           <tbody id="psiTable">
-
             <tr>
-
-              <td
-                colspan="7"
-                class="loading"
-              >
+              <td colspan="7" class="loading">
                 Loading PSI data...
               </td>
-
             </tr>
-
           </tbody>
 
         </table>
 
       </div>
 
-
     </section>
-
 
   </main>
 
-
   <script>
 
-    const API_URL =
-      "https://api-open.data.gov.sg/v2/real-time/api/psi";
-
+    const API_URL = "https://api-open.data.gov.sg/v2/real-time/api/psi";
 
     const readings = [
-
       "o3_sub_index",
-
       "pm10_twenty_four_hourly",
-
       "pm10_sub_index",
-
       "co_sub_index",
-
       "pm25_twenty_four_hourly",
-
       "so2_sub_index",
-
       "co_eight_hour_max",
-
       "no2_one_hour_max",
-
       "so2_twenty_four_hourly",
-
       "pm25_sub_index",
-
       "psi_twenty_four_hourly",
-
       "o3_eight_hour_max"
-
     ];
 
-
-    const regions = [
-
-      "north",
-      "south",
-      "east",
-      "west",
-      "central"
-
-    ];
-
+    const regions = ["north", "south", "east", "west", "central"];
 
     function formatName(name) {
-
       return name
         .replaceAll("_", " ")
         .replace("twenty four", "24")
         .replace("eight hour", "8 hour")
         .replace("one hour", "1 hour");
-
     }
-
 
     function getQuality(psi) {
 
-
       if (psi <= 50) {
-
         return {
           status: "Good",
           title: "Air Quality is Good",
-          description:
-            "Air quality is considered satisfactory."
+          description: "Air quality is considered satisfactory."
         };
-
       }
 
-
       if (psi <= 100) {
-
         return {
           status: "Moderate",
           title: "Air Quality is Moderate",
-          description:
-            "Air quality is acceptable, but some pollutants may be a concern."
+          description: "Air quality is acceptable, but some pollutants may be a concern."
         };
-
       }
 
-
       if (psi <= 200) {
-
         return {
           status: "Unhealthy",
           title: "Air Quality is Unhealthy",
-          description:
-            "Everyone may begin to experience health effects."
+          description: "Everyone may begin to experience health effects."
         };
-
       }
 
-
       if (psi <= 300) {
-
         return {
           status: "Very Unhealthy",
           title: "Air Quality is Very Unhealthy",
-          description:
-            "Health alert conditions may occur."
+          description: "Health alert conditions may occur."
         };
-
       }
-
 
       return {
         status: "Hazardous",
         title: "Air Quality is Hazardous",
-        description:
-          "Health warnings of emergency conditions are expected."
+        description: "Health warnings of emergency conditions are expected."
       };
-
     }
 
     async function loadPSI() {
 
-
-      const table =
-        document.getElementById("psiTable");
-
+      const table = document.getElementById("psiTable");
 
       table.innerHTML = `
-
         <tr>
-
-          <td
-            colspan="7"
-            class="loading"
-          >
+          <td colspan="7" class="loading">
             Loading latest PSI data...
           </td>
-
         </tr>
-
       `;
-
 
       try {
 
-        const response =
-          await fetch(API_URL);
-
+        const response = await fetch(API_URL);
 
         if (!response.ok) {
-
-          throw new Error(
-            "API returned status " +
-            response.status
-          );
-
+          throw new Error("API error");
         }
 
+        const data = await response.json();
+        const item = data.data.items[0];
+        const readingsData = item.readings;
+        const psiData = readingsData.psi_twenty_four_hourly;
 
-        const data =
-          await response.json();
+        regions.forEach(function(region) {
+          document.getElementById(region).textContent = psiData[region];
+        });
 
+        let highestRegion = regions[0];
 
-        console.log(
-          "API Response:",
-          data
-        );
-
-
-        const item =
-          data.data.items[0];
-
-
-        const readingsData =
-          item.readings;
-
-
-        const psiData =
-          readingsData
-            .psi_twenty_four_hourly;
-
-
-        regions.forEach(
-          function(region) {
-
-            document.getElementById(
-              region
-            ).textContent =
-              psiData[region];
-
+        regions.forEach(function(region) {
+          if (psiData[region] > psiData[highestRegion]) {
+            highestRegion = region;
           }
-        );
+        });
 
+        const highestPSI = psiData[highestRegion];
 
-        let highestRegion =
-          regions[0];
+        document.getElementById("psiValue").textContent = highestPSI;
 
-
-        regions.forEach(
-          function(region) {
-
-            if (
-              psiData[region] >
-              psiData[highestRegion]
-            ) {
-
-              highestRegion =
-                region;
-
-            }
-
-          }
-        );
-
-
-        const highestPSI =
-          psiData[highestRegion];
-
-
-        document.getElementById(
-          "psiValue"
-        ).textContent =
-          highestPSI;
-
-
-        document.getElementById(
-          "psiRegion"
-        ).textContent =
+        document.getElementById("psiRegion").textContent =
           "Highest reading: " +
-          highestRegion
-            .charAt(0)
-            .toUpperCase() +
+          highestRegion.charAt(0).toUpperCase() +
           highestRegion.slice(1);
 
+        const quality = getQuality(highestPSI);
 
-        const quality =
-          getQuality(highestPSI);
-
-
-        document.getElementById(
-          "psiStatus"
-        ).textContent =
-          quality.status;
-
-
-        document.getElementById(
-          "qualityTitle"
-        ).textContent =
-          quality.title;
-
-
-        document.getElementById(
-          "qualityDescription"
-        ).textContent =
+        document.getElementById("psiStatus").textContent = quality.status;
+        document.getElementById("qualityTitle").textContent = quality.title;
+        document.getElementById("qualityDescription").textContent =
           quality.description;
 
         table.innerHTML = "";
 
+        readings.forEach(function(readingName, index) {
 
-        readings.forEach(
-          function(readingName, index) {
+          const reading = readingsData[readingName];
 
+          const row = document.createElement("tr");
 
-            const reading =
-              readingsData[
-                readingName
-              ];
+          let rowData = `
+            <td>${index + 1}</td>
+            <td>${formatName(readingName)}</td>
+          `;
 
+          regions.forEach(function(region) {
 
-            const row =
-              document.createElement("tr");
+            let value = "N/A";
 
+            if (reading && reading[region] !== undefined) {
+              value = reading[region];
+            }
 
-            let html = `
+            rowData += `<td>${value}</td>`;
+          });
 
-              <td>
-                ${index + 1}
-              </td>
+          row.innerHTML = rowData;
+          table.appendChild(row);
 
-              <td>
-                ${formatName(
-                  readingName
-                )}
-              </td>
+        });
 
-            `;
+        const time = item.updatedTimestamp || item.timestamp;
 
+        if (time) {
+          const date = new Date(time);
 
-            regions.forEach(
-              function(region) {
-
-
-                let value =
-                  "N/A";
-
-
-                if (
-                  reading &&
-                  reading[region]
-                  !== undefined
-                ) {
-
-                  value =
-                    reading[region];
-
-                }
-
-
-                html += `
-
-                  <td>
-                    ${value}
-                  </td>
-
-                `;
-
-              }
-            );
-
-
-            row.innerHTML =
-              html;
-
-
-            table.appendChild(row);
-
-          }
-        );
-
-        const timestamp =
-          item.updatedTimestamp ||
-          item.timestamp;
-
-
-        if (timestamp) {
-
-          const date =
-            new Date(timestamp);
-
-
-          document.getElementById(
-            "updatedTime"
-          ).textContent =
-            "Last updated: " +
-            date.toLocaleString();
-
+          document.getElementById("updatedTime").textContent =
+            "Last updated: " + date.toLocaleString();
         }
 
-      }
-
-
-      catch (error) {
-
-
-        console.error(
-          "PSI API Error:",
-          error
-        );
-
+      } catch (error) {
 
         table.innerHTML = `
-
           <tr>
-
-            <td
-              colspan="7"
-              class="error"
-            >
+            <td colspan="7" class="error">
               Unable to load PSI data.
             </td>
-
           </tr>
-
         `;
 
-
-        document.getElementById(
-          "psiValue"
-        ).textContent =
-          "--";
-
-
-        document.getElementById(
-          "psiStatus"
-        ).textContent =
-          "Unavailable";
-
+        document.getElementById("psiValue").textContent = "--";
+        document.getElementById("psiStatus").textContent = "Unavailable";
       }
-
     }
-
 
     loadPSI();
 
-    setInterval(
-      loadPSI,
-      15 * 60 * 1000
-    );
-
+    setInterval(function() {
+      loadPSI();
+    }, 15 * 60 * 1000);
 
   </script>
 
-
 </body>
-
 </html>
