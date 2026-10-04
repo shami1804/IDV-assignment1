@@ -34,11 +34,6 @@
       color: #0B2348;
     }
 
-
-    /* =========================
-       BACKGROUND
-    ========================= */
-
     .background {
 
       position: fixed;
@@ -53,9 +48,6 @@
 
       z-index: -2;
     }
-
-
-    /* Light overlay so data is readable */
 
     .overlay {
 
@@ -72,11 +64,6 @@
       z-index: -1;
     }
 
-
-    /* =========================
-       MAIN CONTENT
-    ========================= */
-
     .page {
 
       width: 90%;
@@ -89,11 +76,6 @@
 
       padding-bottom: 60px;
     }
-
-
-    /* =========================
-       HEADER
-    ========================= */
 
     header {
       margin-bottom: 35px;
@@ -138,10 +120,6 @@
     }
 
 
-    /* =========================
-       LIVE BADGE
-    ========================= */
-
     .live {
 
       display: inline-flex;
@@ -178,11 +156,6 @@
 
       border-radius: 50%;
     }
-
-
-    /* =========================
-       PSI CARD
-    ========================= */
 
     .psi-card {
 
@@ -302,11 +275,6 @@
       font-size: 13px;
     }
 
-
-    /* =========================
-       REGIONAL PSI
-    ========================= */
-
     .regional-card {
 
       background: rgba(255, 255, 255, 0.86);
@@ -382,10 +350,6 @@
       margin-top: 7px;
     }
 
-
-    /* =========================
-       TABLE
-    ========================= */
 
     .table-card {
 
@@ -518,10 +482,6 @@
     }
 
 
-    /* =========================
-       MOBILE
-    ========================= */
-
     @media (max-width: 800px) {
 
       .page {
@@ -589,26 +549,15 @@
 <body>
 
 
-  <!-- BACKGROUND IMAGE -->
-
   <img
     src="bg.png"
     class="background"
     alt=""
   >
 
-
-  <!-- BACKGROUND OVERLAY -->
-
   <div class="overlay"></div>
 
-
-  <!-- PAGE CONTENT -->
-
   <main class="page">
-
-
-    <!-- HEADER -->
 
     <header>
 
@@ -637,10 +586,6 @@
       </div>
 
     </header>
-
-
-
-    <!-- PSI -->
 
     <section class="psi-card">
 
@@ -707,9 +652,6 @@
 
     </section>
 
-
-
-    <!-- REGIONAL PSI -->
 
     <section class="regional-card">
 
@@ -807,9 +749,6 @@
     </section>
 
 
-
-    <!-- API TABLE -->
-
     <section class="table-card">
 
 
@@ -880,19 +819,11 @@
   </main>
 
 
-
-  <!-- JAVASCRIPT -->
-
   <script>
-
-
-    /* API URL */
 
     const API_URL =
       "https://api-open.data.gov.sg/v2/real-time/api/psi";
 
-
-    /* Required 12 readings */
 
     const readings = [
 
@@ -923,8 +854,6 @@
     ];
 
 
-    /* Regions */
-
     const regions = [
 
       "north",
@@ -936,8 +865,6 @@
     ];
 
 
-    /* Make API names easier to read */
-
     function formatName(name) {
 
       return name
@@ -948,8 +875,6 @@
 
     }
 
-
-    /* PSI quality */
 
     function getQuality(psi) {
 
@@ -1011,9 +936,6 @@
 
     }
 
-
-    /* Load PSI data */
-
     async function loadPSI() {
 
 
@@ -1039,9 +961,6 @@
 
       try {
 
-
-        /* Fetch API */
-
         const response =
           await fetch(API_URL);
 
@@ -1056,8 +975,6 @@
         }
 
 
-        /* Convert response to JSON */
-
         const data =
           await response.json();
 
@@ -1068,26 +985,18 @@
         );
 
 
-        /* Latest item */
-
         const item =
           data.data.items[0];
 
-
-        /* All readings */
 
         const readingsData =
           item.readings;
 
 
-        /* PSI data */
-
         const psiData =
           readingsData
             .psi_twenty_four_hourly;
 
-
-        /* Display regional PSI */
 
         regions.forEach(
           function(region) {
@@ -1100,8 +1009,6 @@
           }
         );
 
-
-        /* Find highest region */
 
         let highestRegion =
           regions[0];
@@ -1128,8 +1035,6 @@
           psiData[highestRegion];
 
 
-        /* Main PSI */
-
         document.getElementById(
           "psiValue"
         ).textContent =
@@ -1145,8 +1050,6 @@
             .toUpperCase() +
           highestRegion.slice(1);
 
-
-        /* Quality */
 
         const quality =
           getQuality(highestPSI);
@@ -1168,11 +1071,6 @@
           "qualityDescription"
         ).textContent =
           quality.description;
-
-
-        /* =========================
-           TABLE
-        ========================= */
 
         table.innerHTML = "";
 
@@ -1247,11 +1145,6 @@
           }
         );
 
-
-        /* =========================
-           UPDATE TIME
-        ========================= */
-
         const timestamp =
           item.updatedTimestamp ||
           item.timestamp;
@@ -1315,12 +1208,7 @@
     }
 
 
-    /* Load immediately */
-
     loadPSI();
-
-
-    /* Refresh every 15 minutes */
 
     setInterval(
       loadPSI,
