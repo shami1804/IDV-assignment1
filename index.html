@@ -87,68 +87,6 @@
       border-radius: 50%;
     }
 
-    .psi-card {
-      display: flex;
-      align-items: center;
-      gap: 35px;
-      padding: 28px;
-      margin-bottom: 22px;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 22px;
-      box-shadow: 0 12px 35px rgba(40, 70, 100, 0.15);
-    }
-
-    .psi-main {
-      width: 300px;
-      padding-right: 30px;
-      text-align: center;
-      border-right: 1px solid #dbe5ee;
-    }
-
-    .psi-label {
-      color: #65738A;
-      font-size: 17px;
-    }
-
-    .psi-value {
-      margin-top: 5px;
-      font-size: 70px;
-      font-weight: bold;
-      color: #209447;
-    }
-
-    .psi-region {
-      color: #65738A;
-      font-size: 14px;
-    }
-
-    .psi-status {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 7px 28px;
-      border-radius: 20px;
-      background: #e5f7eb;
-      color: #16803c;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .psi-info h2 {
-      margin-top: 0;
-      color: #0B2348;
-    }
-
-    .psi-info p {
-      max-width: 500px;
-      line-height: 1.6;
-      color: #65738A;
-    }
-
-    .updated {
-      color: #65738A;
-      font-size: 13px;
-    }
-
     .regional-card,
     .table-card {
       padding: 22px;
@@ -236,10 +174,6 @@
       font-size: 14px;
     }
 
-    tr:hover {
-      background: #e8f6ed;
-    }
-
     .loading,
     .error {
       text-align: center;
@@ -266,18 +200,6 @@
 
       .subtitle {
         font-size: 18px;
-      }
-
-      .psi-card {
-        flex-direction: column;
-      }
-
-      .psi-main {
-        width: 100%;
-        padding-right: 0;
-        padding-bottom: 20px;
-        border-right: none;
-        border-bottom: 1px solid #dbe5ee;
       }
 
       .regions {
@@ -316,75 +238,6 @@
         LIVE DATA
       </div>
     </header>
-
-    <section class="psi-card">
-
-      <div class="psi-main">
-        <div class="psi-label">Highest Current PSI</div>
-
-        <div class="psi-value" id="psiValue">--</div>
-
-        <div class="psi-region" id="psiRegion">
-          Loading...
-        </div>
-
-        <div class="psi-status" id="psiStatus">
-          Loading...
-        </div>
-      </div>
-
-      <div class="psi-info">
-
-        <h2 id="qualityTitle">
-          Loading air quality...
-        </h2>
-
-        <p id="qualityDescription">
-          Retrieving the latest PSI reading from the National Environment Agency.
-        </p>
-
-        <div class="updated" id="updatedTime">
-          Updating...
-        </div>
-
-      </div>
-
-    </section>
-
-    <section class="regional-card">
-
-      <h2>PSI by Region</h2>
-
-      <div class="regions">
-
-        <div class="region">
-          <div class="region-name">North</div>
-          <div class="region-value" id="north">--</div>
-        </div>
-
-        <div class="region">
-          <div class="region-name">South</div>
-          <div class="region-value" id="south">--</div>
-        </div>
-
-        <div class="region">
-          <div class="region-name">East</div>
-          <div class="region-value" id="east">--</div>
-        </div>
-
-        <div class="region">
-          <div class="region-name">West</div>
-          <div class="region-value" id="west">--</div>
-        </div>
-
-        <div class="region">
-          <div class="region-name">Central</div>
-          <div class="region-value" id="central">--</div>
-        </div>
-
-      </div>
-
-    </section>
 
     <section class="table-card">
 
@@ -446,57 +299,14 @@
       "psi_twenty_four_hourly",
       "o3_eight_hour_max"
     ];
-
-    const regions = ["north", "south", "east", "west", "central"];
-
-    function formatName(name) {
+function formatName(name) {
       return name
         .replaceAll("_", " ")
         .replace("twenty four", "24")
         .replace("eight hour", "8 hour")
         .replace("one hour", "1 hour");
     }
-
-    function getQuality(psi) {
-
-      if (psi <= 50) {
-        return {
-          status: "Good",
-          title: "Air Quality is Good",
-          description: "Air quality is considered satisfactory."
-        };
-      }
-
-      if (psi <= 100) {
-        return {
-          status: "Moderate",
-          title: "Air Quality is Moderate",
-          description: "Air quality is acceptable, but some pollutants may be a concern."
-        };
-      }
-
-      if (psi <= 200) {
-        return {
-          status: "Unhealthy",
-          title: "Air Quality is Unhealthy",
-          description: "Everyone may begin to experience health effects."
-        };
-      }
-
-      if (psi <= 300) {
-        return {
-          status: "Very Unhealthy",
-          title: "Air Quality is Very Unhealthy",
-          description: "Health alert conditions may occur."
-        };
-      }
-
-      return {
-        status: "Hazardous",
-        title: "Air Quality is Hazardous",
-        description: "Health warnings of emergency conditions are expected."
-      };
-    }
+    const regions = ["north", "south", "east", "west", "central"];
 
     async function loadPSI() {
 
@@ -521,37 +331,7 @@
         const data = await response.json();
         const item = data.data.items[0];
         const readingsData = item.readings;
-        const psiData = readingsData.psi_twenty_four_hourly;
-
-        regions.forEach(function(region) {
-          document.getElementById(region).textContent = psiData[region];
-        });
-
-        let highestRegion = regions[0];
-
-        regions.forEach(function(region) {
-          if (psiData[region] > psiData[highestRegion]) {
-            highestRegion = region;
-          }
-        });
-
-        const highestPSI = psiData[highestRegion];
-
-        document.getElementById("psiValue").textContent = highestPSI;
-
-        document.getElementById("psiRegion").textContent =
-          "Highest reading: " +
-          highestRegion.charAt(0).toUpperCase() +
-          highestRegion.slice(1);
-
-        const quality = getQuality(highestPSI);
-
-        document.getElementById("psiStatus").textContent = quality.status;
-        document.getElementById("qualityTitle").textContent = quality.title;
-        document.getElementById("qualityDescription").textContent =
-          quality.description;
-
-        table.innerHTML = "";
+table.innerHTML = "";
 
         readings.forEach(function(readingName, index) {
 
@@ -580,15 +360,6 @@
 
         });
 
-        const time = item.updatedTimestamp || item.timestamp;
-
-        if (time) {
-          const date = new Date(time);
-
-          document.getElementById("updatedTime").textContent =
-            "Last updated: " + date.toLocaleString();
-        }
-
       } catch (error) {
 
         table.innerHTML = `
@@ -598,9 +369,6 @@
             </td>
           </tr>
         `;
-
-        document.getElementById("psiValue").textContent = "--";
-        document.getElementById("psiStatus").textContent = "Unavailable";
       }
     }
 
